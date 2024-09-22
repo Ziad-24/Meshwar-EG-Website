@@ -24,7 +24,7 @@ const RefundPolicy = () => {
 
       {/* Add remaining sections as in the original content */}
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">6. Contact Us</h2>
+        <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
         <p className="text-gray-600">
           Email: <a href="mailto:info@meshwareg.com" className="text-blue-600">info@meshwareg.com</a><br />
           Address: 4 Hafez Ramadan St, Nasr City, Cairo, Egypt<br />

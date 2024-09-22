@@ -9,7 +9,7 @@ const TermsAndConditions = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
         <p className="text-gray-600">
-          Welcome to Meshwar! These Terms and Conditions Terms govern your use of our ride-hailing platform. By using Meshwar’s services, you agree to abide by these Terms.
+          Welcome to Meshwar! These Terms and Conditions Terms govern your use of our ride-hailing platform. By using Meshwars services, you agree to abide by these Terms.
         </p>
       </section>
 

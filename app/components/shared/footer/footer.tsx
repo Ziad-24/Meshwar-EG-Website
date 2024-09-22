@@ -10,6 +10,10 @@ type SocialIconProps = Omit<IconProps, "icon">;
 
 const navLinks = [
   {
+    name: "About Us",
+    href: "/about-us",
+  },
+  {
     name: "Privacy Policy",
     href: "/privacy-policy",
   },
@@ -27,8 +31,8 @@ const socialItems = [
   {
     name: "TikTok",
     href: "https://www.tiktok.com/@meshwar.eg",
-    icon: (props: SocialIconProps) => <Icon {...props} icon="fontisto:tiktok" />,
-  },
+    icon: (props: SocialIconProps) => <Icon {...props} icon="mdi:tiktok" />, // Updated to 'mdi' collection
+  },  
   {
     name: "Instagram",
     href: "https://www.instagram.com/meshwar_eg",
@@ -36,7 +40,7 @@ const socialItems = [
   },
   {
     name: "Facebook",
-    href: "https://www.facebook.com/share/uwYUSJtbFeZBMoip/?mibextid=LQQJ4d",
+    href: "https://www.facebook.com/profile.php?id=61559750643511",
     icon: (props: SocialIconProps) => <Icon {...props} icon="fontisto:facebook" />,
   },
 ];

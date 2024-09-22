@@ -65,31 +65,30 @@ export default function BasicNavbar(props: NavbarProps) {
 
         {/* Center Content */}
         <NavbarContent justify="center">
-          {/* <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
-              Customer
-            </Link>
-          </NavbarItem>
           <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
-              Driver
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link aria-current="page" color="foreground" href="#" size="sm">
-              Customers
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
+            <Link className="text-default-500" href="/about-us" size="sm">
               About Us
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link className="text-default-500" href="#" size="sm">
-              Integrations
+            <Link className="text-default-500" href="/privacy-policy" size="sm">
+              Privacy Policy
             </Link>
-          </NavbarItem> */}
+          </NavbarItem>
+          <NavbarItem>
+            <Link className="text-default-500" href="/refund-policy" size="sm">
+              Refund Policy
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link
+              className="text-default-500"
+              href="/terms-and-conditions"
+              size="sm"
+            >
+              Terms and Conditions
+            </Link>
+          </NavbarItem>
         </NavbarContent>
 
         {/* Right Content */}
