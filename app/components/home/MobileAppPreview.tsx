@@ -25,10 +25,6 @@ const MobileAppPreview: React.FC = () => {
           spaceBetween={4}
           pagination={{ clickable: true }}
           modules={[Pagination]}
-          breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
           className="mySwiper"
         >
           {images.map((src, index) => (
@@ -38,7 +34,8 @@ const MobileAppPreview: React.FC = () => {
                   src={src}
                   alt={`App Mockup ${index + 1}`}
                   width={1000}
-                  height={600}
+                  height={800}
+                  quality={100}
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -65,8 +62,9 @@ const MobileAppPreview: React.FC = () => {
                 <Image
                   src={src}
                   alt={`App Mockup ${index + 1}`}
-                  width={1000}
+                  width={1200}
                   height={600}
+                  quality={100}
                   className="w-full h-auto object-cover"
                 />
               </div>
