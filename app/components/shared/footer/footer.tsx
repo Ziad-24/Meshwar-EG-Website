@@ -1,83 +1,100 @@
-"use client";
-
-import type { IconProps } from "@iconify/react";
+import Link from "next/link";
 import React from "react";
-import { Link, Spacer } from "@nextui-org/react";
-import { Icon } from "@iconify/react";
-import Image from "next/image";
 
-type SocialIconProps = Omit<IconProps, "icon">;
+import { siteDetails } from "@/data/siteDetails";
+import { footerDetails } from "@/data/footer";
+import { getPlatformIconByName } from "@/utils";
 
-const navLinks = [
-  {
-    name: "About Us",
-    href: "/about-us",
-  },
-  {
-    name: "Privacy Policy",
-    href: "/privacy-policy",
-  },
-  {
-    name: "Terms and Conditions",
-    href: "/terms-and-conditions",
-  },
-  {
-    name: "Refund Policy",
-    href: "/refund-policy",
-  },
-];
-
-const socialItems = [
-  {
-    name: "TikTok",
-    href: "https://www.tiktok.com/@meshwar.eg",
-    icon: (props: SocialIconProps) => <Icon {...props} icon="mdi:tiktok" />, // Updated to 'mdi' collection
-  },  
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/meshwar_eg",
-    icon: (props: SocialIconProps) => <Icon {...props} icon="fontisto:instagram" />,
-  },
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61559750643511",
-    icon: (props: SocialIconProps) => <Icon {...props} icon="fontisto:facebook" />,
-  },
-];
-
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+const Footer: React.FC = () => {
   return (
-    <footer className="flex w-full flex-col">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-6 py-12 lg:px-8">
-        <div className="flex items-center justify-center">
-          <Image src="/identity/logo/blue-logo.png" alt="Meshwar Logo" width={180} height={60} />
+    <footer className="bg-hero-background text-foreground py-10">
+      <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Logo & Description */}
+        <div>
+          <Link href="/" className="flex items-center gap-2">
+            <h3 className="manrope text-xl font-semibold cursor-pointer">
+              {siteDetails.siteName}
+            </h3>
+          </Link>
+          <p className="mt-3.5 text-foreground-accent">
+            {footerDetails.subheading}
+          </p>
+          <p className="mt-2 text-sm text-foreground-accent">
+            VAT Reg Number: {footerDetails.vatNumber}
+          </p>
+          <p className="mt-2 text-sm text-foreground-accent">
+            Address: {footerDetails.address}
+          </p>
         </div>
-        <Spacer y={4} />
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
-          {navLinks.map((item) => (
-            <Link key={item.name} className="text-default-500" href={item.href} size="sm">
-              {item.name}
-            </Link>
-          ))}
+
+        {/* Quick Links */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul className="text-foreground-accent">
+            {footerDetails.quickLinks.map((link) => (
+              <li key={link.text} className="mb-2">
+                <Link href={link.url} className="hover:text-foreground">
+                  {link.text}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-        <Spacer y={6} />
-        <div className="flex justify-center gap-x-4">
-          {socialItems.map((item) => (
-            <Link key={item.name} isExternal className="text-default-400" href={item.href}>
-              <span className="sr-only">{item.name}</span>
-              <item.icon aria-hidden="true" className="w-5" />
-            </Link>
-          ))}
+
+        {/* Contact Info & Socials */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+
+          {footerDetails.email && (
+            <a
+              href={`mailto:${footerDetails.email}`}
+              className="block text-foreground-accent hover:text-foreground"
+            >
+              Email: {footerDetails.email}
+            </a>
+          )}
+
+          {footerDetails.telephone && (
+            <a
+              href={`tel:${footerDetails.telephone}`}
+              className="block text-foreground-accent hover:text-foreground"
+            >
+              Phone: {footerDetails.telephone}
+            </a>
+          )}
+
+          {footerDetails.socials && (
+            <div className="mt-5 flex items-center gap-5 flex-wrap">
+              {Object.keys(footerDetails.socials).map((platformName) => {
+                const url = footerDetails.socials[platformName];
+                if (platformName && url) {
+                  return (
+                    <Link
+                      href={url}
+                      key={platformName}
+                      aria-label={platformName}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {getPlatformIconByName(platformName)}
+                    </Link>
+                  );
+                }
+              })}
+            </div>
+          )}
         </div>
-        <Spacer y={4} />
-        <p className="mt-1 text-center text-small text-default-400">
-          &copy; {currentYear} Meshwar EG. All rights reserved. <br />
-          4 Hafez Ramadan St., 2 Delta Flower, Nasr City, Cairo, Egypt
-          <br />
-          Email: <a href="mailto:info@meshwareg.com">info@meshwareg.com</a>
+      </div>
+
+      {/* Bottom Info */}
+      <div className="mt-8 md:text-center text-foreground-accent px-6">
+        <p>
+          &copy; {new Date().getFullYear()} {siteDetails.siteName}. All rights
+          reserved.
         </p>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

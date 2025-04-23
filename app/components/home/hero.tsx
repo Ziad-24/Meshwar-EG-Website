@@ -1,57 +1,46 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Button } from "@nextui-org/react";
 import React from "react";
+import Image from "next/image";
 
-export default function HomeHeroSection() {
+import AppStoreButton from "../Buttons/AppStoreButton";
+import PlayStoreButton from "../Buttons/PlayStoreButton";
+
+const Hero: React.FC = () => {
   return (
-    <div className="container mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 items-center min-h-[80vh]">
-      {/* Left Section */}
-      <section className="flex flex-col items-start gap-6">
-        <Button
-          className="h-9 overflow-hidden border border-gray-300 bg-gray-50 px-6 py-2 text-sm font-normal text-gray-500"
-          endContent={<Icon icon="solar:arrow-right-linear" width={20} />}
-          radius="full"
-          variant="bordered"
-        >
-          Seamless onboarding experience
-        </Button>
+    <section
+      id="hero"
+      className="relative flex items-center justify-center py-16 md:py-20 px-5"
+    >
+      <div className="absolute left-0 top-0 bottom-0 -z-10 w-full">
+        <div className="absolute inset-0 h-full w-full bg-hero-background bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
+      </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight text-black">
-          Simplifying transportation <br /> for drivers and passengers.
+      <div className="absolute left-0 right-0 bottom-0 backdrop-blur-[2px] h-40 bg-gradient-to-b from-transparent via-[rgba(233,238,255,0.3)] to-[rgba(202,208,230,0.3)]"></div>
+
+      <div className="text-center">
+        <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-3xl mx-auto">
+          Ride Smart. Ride <span className="text-primary">Meshwar.</span>
         </h1>
-
-        <p className="text-lg text-gray-600 max-w-md">
-          Meshwar offers consistent fares, better driver compensation, and enhanced safety features to ensure a seamless and reliable ride-hailing experience in Egypt.
+        <p className="mt-4 text-foreground max-w-lg mx-auto">
+          No surge pricing. Always A/C. Every trip is recorded and accessible.
         </p>
-
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <Button className="h-10 w-40 bg-blue-600 text-white" radius="full">
-            Get Started
-          </Button>
-          <Button
-            className="h-10 w-40 border border-gray-300 text-gray-600"
-            endContent={
-              <span className="flex h-6 w-6 items-center justify-center bg-gray-300 rounded-full">
-                <Icon icon="solar:arrow-right-linear" width={16} />
-              </span>
-            }
-            radius="full"
-            variant="bordered"
-          >
-            Learn More
-          </Button>
+        <div className="mt-6 flex flex-col sm:flex-row items-center sm:gap-4 w-fit mx-auto">
+          <AppStoreButton dark />
+          <PlayStoreButton dark />
         </div>
-      </section>
-
-      {/* Right Section (Mobile Image) */}
-      <div className="flex justify-center">
-        {/* Placeholder for Mobile Mockup Image */}
-        <img
-          src="/identity/logo/blue-logo.png"
-          alt="Mobile App Mockup"
-          className="max-w-full"
+        <Image
+          src="/images/home/launch-soon.jpeg"
+          width={1080}
+          height={500}
+          quality={100}
+          sizes="(max-width: 768px) 100vw, 384px"
+          priority={true}
+          unoptimized={true}
+          alt="app mockup"
+          className="relative mt-12 md:mt-16 mx-auto z-10 rounded-lg"
         />
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default Hero;

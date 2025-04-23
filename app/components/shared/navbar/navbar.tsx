@@ -1,142 +1,117 @@
 "use client";
 
-import type { NavbarProps } from "@nextui-org/react";
+import Link from "next/link";
+import React, { useState } from "react";
+import { Transition } from "@headlessui/react";
+import { HiOutlineXMark, HiBars3 } from "react-icons/hi2";
 
-import React from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-  Link,
-  Button,
-  Divider,
-} from "@nextui-org/react";
-import { Icon } from "@iconify/react";
-import { cn } from "@nextui-org/react";
-
+import Container from "./Container";
+import { menuItems } from "@/data/menuItems";
 import Image from "next/image";
+import { IMenuItem } from "@/types";
 
-const menuItems = [
-  "About",
-  "Blog",
-  "Customers",
-  "Pricing",
-  "Enterprise",
-  "Changelog",
-  "Documentation",
-  "Contact Us",
-];
+const Header: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-export default function BasicNavbar(props: NavbarProps) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <>
-      <Navbar
-        {...props}
-        classNames={{
-          base: cn("border-default-100", {
-            "bg-default-200/50 dark:bg-default-100/50": isMenuOpen,
-          }),
-          wrapper: "w-full justify-center",
-          item: "hidden md:flex",
-        }}
-        height="60px"
-        isMenuOpen={isMenuOpen}
-        onMenuOpenChange={setIsMenuOpen}
-      >
-        {/* Left Content */}
-        <NavbarBrand>
-          <div className="rounded-full bg-foreground text-background">
-            <Link href="/">
-              <Image
-                src="/identity/logo/blue-logo.png"
-                alt="Meshwar Logo"
-                width={170}
-                height={50}
-              />
-            </Link>
-          </div>
-        </NavbarBrand>
+    <header className="bg-transparent fixed top-0 left-0 right-0 md:absolute z-50 mx-auto w-full">
+      <Container className="!px-0">
+        <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/identity/logo/blue-logo.png"
+              alt="About us"
+              width={130}
+              quality={100}
+              height={400}
+              className="rounded-2xl w-full h-auto object-cover"
+            />
+          </Link>
 
-        {/* Center Content */}
-        <NavbarContent justify="center">
-          <NavbarItem>
-            <Link className="text-default-500" href="/about-us" size="sm">
-              About Us
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-default-500" href="/privacy-policy" size="sm">
-              Privacy Policy
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-default-500" href="/refund-policy" size="sm">
-              Refund Policy
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              className="text-default-500"
-              href="/terms-and-conditions"
-              size="sm"
-            >
-              Terms and Conditions
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-
-        {/* Right Content */}
-        <NavbarContent className="hidden md:flex" justify="end">
-          <NavbarItem className="ml-2 !flex gap-2">
-            <Button
-              className="bg-foreground font-medium text-background"
-              color="secondary"
-              endContent={<Icon icon="solar:alt-arrow-right-linear" />}
-              radius="full"
-              variant="flat"
-            >
-              Get Started
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
-
-        <NavbarMenuToggle className="text-default-400 md:hidden" />
-
-        <NavbarMenu className="top-[calc(var(--navbar-height)_-_1px)] max-h-fit bg-default-200/50 pb-6 pt-6 shadow-medium backdrop-blur-md backdrop-saturate-150 dark:bg-default-100/50">
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link className="mb-2 w-full text-default-500" href="#" size="md">
-                {item}
+          {/* Desktop Menu */}
+          <ul className="hidden md:flex space-x-6">
+            {menuItems.map((item: IMenuItem) => (
+              <li key={item.text}>
+                <Link
+                  href={item.url}
+                  className="text-foreground hover:text-foreground-accent transition-colors"
+                >
+                  {item.text}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="#cta"
+                className="text-white font-semibold bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors"
+              >
+                Download
               </Link>
-              {index < menuItems.length - 1 && (
-                <Divider className="opacity-50" />
-              )}
-            </NavbarMenuItem>
-          ))}
-          <NavbarMenuItem>
-            <Button fullWidth as={Link} href="/#" variant="faded">
-              Sign In
-            </Button>
-          </NavbarMenuItem>
-          <NavbarMenuItem className="mb-4">
-            <Button
-              fullWidth
-              as={Link}
-              className="bg-foreground text-background"
-              href="/#"
+            </li>
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              type="button"
+              className="bg-primary text-white focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
+              aria-controls="mobile-menu"
+              aria-expanded={isOpen}
             >
-              Get Started
-            </Button>
-          </NavbarMenuItem>
-        </NavbarMenu>
-      </Navbar>
-      <Divider className="opacity-50" />
-    </>
+              {isOpen ? (
+                <HiOutlineXMark className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <HiBars3 className="h-6 w-6" aria-hidden="true" />
+              )}
+              <span className="sr-only">Toggle navigation</span>
+            </button>
+          </div>
+        </nav>
+      </Container>
+
+      {/* Mobile Menu with Transition */}
+      <Transition
+        show={isOpen}
+        enter="transition ease-out duration-200 transform"
+        enterFrom="opacity-0 scale-95"
+        enterTo="opacity-100 scale-100"
+        leave="transition ease-in duration-75 transform"
+        leaveFrom="opacity-100 scale-100"
+        leaveTo="opacity-0 scale-95"
+      >
+        <div id="mobile-menu" className="md:hidden bg-white shadow-lg">
+          <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
+            {menuItems.map((item: IMenuItem) => (
+              <li key={item.text}>
+                <Link
+                  href={item.url}
+                  className="text-foreground hover:text-primary block"
+                  onClick={toggleMenu}
+                >
+                  {item.text}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="#cta"
+                className="text-white bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit"
+                onClick={toggleMenu}
+              >
+                Download
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </Transition>
+    </header>
   );
-}
+};
+
+export default Header;
